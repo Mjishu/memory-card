@@ -12,22 +12,32 @@ function App() {
     setPanels(newPanels)
   },[])
 
+
+
   React.useEffect(()=>{
-    fetch("https://pokeapi.co/api/v2/pokemon/1")
-    .then(res => res.json())
-    .then(data => setPanels(data.sprites.front_default))
-    .catch(error => console.log(error))
+    const pokemonIndex = [3,1,2,23,34,65, 30, 46, 78, 18];
+    const newData = pokemonIndex.map(index => (
+      fetch(`https://pokeapi.co/api/v2/pokemon/${index}`)
+      .then(res => res.json())
+      .then(data => data.sprites.front_default)
+      .catch(error => console.log(error))
+    ));
+    setPanels(oldPanels => [...oldPanels, newData])
   },[])
 
-  // function panelsMapped(){
-  //   return panels.map((panel) => (
-  //       <p key={panel}>{panel}</p>
-  //   ))
-  // }
+  console.log(panels)
+
+  
+
+  function panelsMapped(){
+    return panels.map((panel) => (
+        <img key={panel.id} src={panel}/>
+    ))
+  }
   return (
     <>
       <div className="panel-holder">
-        <img src={panels} alt="" />
+        {panelsMapped}
       </div>
     </>
   )
@@ -40,4 +50,7 @@ export default App
 
 //* Break it down -> use state with n amount of cards; on these cards show a number and put this array of numbers inside useState -> change numbres to an img url
 
-// photos by pexels
+// photos by pokeAPI
+
+//todo: I think i need to do a for loop inside the useEffect for n amounts and use a random number for the pokemon/ bc if i used 1-10 it will just
+//todo: be base pokemon and their evolutions
