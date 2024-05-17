@@ -1,0 +1,11 @@
+.panel-holder{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(2,auto);
+    gap: .75rem;
+    text-align: center;
+}
+
+.panel-holder *{
+    border: black solid 1px;
+}
