@@ -6,6 +6,7 @@
     text-align: center;
 }
 
-.panel-holder > img{
+.panel-holder > div > img{
     border: black solid 1px;
+    width:7.5rem;
 }
