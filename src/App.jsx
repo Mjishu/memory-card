@@ -25,20 +25,20 @@ function App() {
 
   React.useEffect(() => { //? Could I call populatePandels, and then in this for loop append the url to each of the value indexes that correlate with the index in panels?
     async function fetchData() { //I think I should turn boardBody into an arr of objects 
-      const boardBody = [];
       for (let i = 1; i <= 10; i++) {  
         try {
           const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i*5}`);
           const data = await response.json();
-          boardBody.push(data.sprites.front_default);
+          setPanels(oldpanel => oldpanel[i].value = data)
         } catch (error) {
           console.error('Error fetching data:', error);
         }
       }
-      setPanels(boardBody);
     }
     fetchData();
   }, []);
+
+  console.log(panels)
 
   function handleClick(id){
       console.log("clicked" , id)
@@ -55,5 +55,3 @@ function App() {
 }
 
 export default App
-
-=
