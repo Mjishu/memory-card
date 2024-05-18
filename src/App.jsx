@@ -5,17 +5,19 @@ import Board from './components/Board.jsx'
 import { nanoid } from 'nanoid'
 
 function App() {
-  const [panels, setPanels] = React.useState([])
+  const [panels, setPanels] = React.useState(populatePanels())
 
   function createPanels(){
     return{
       value: "" ,//* This should be whats in React.useEffect how to store api value here...
       isSeen:false,
-      id:nanoid()
+      id:nanoid(),
+      pokeVal: Math.ceil(Math.random()* 1000),
+      name: ''
     }
   }
 
-  function populatePandels(){ //? This should be called in React.useState 
+  function populatePanels(){ //? This should be called in React.useState 
     const newPanel = [];
     for (let i =0;i<10;i++){
       newPanel.push(createPanels())
@@ -25,18 +27,19 @@ function App() {
 
   React.useEffect(() => { //? Could I call populatePandels, and then in this for loop append the url to each of the value indexes that correlate with the index in panels?
     async function fetchData() { //I think I should turn boardBody into an arr of objects 
-      for (let i = 1; i <= 10; i++) {  
-        try {
-          const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i*5}`);
+      try{
+        const updatedPanels = await Promise.all(panels.map(async(panel) => {
+          const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${panel.pokeVal}`)
           const data = await response.json();
-          setPanels(oldpanel => oldpanel[i].value = data)
+          return {...panel, value:data.sprites.front_default, name:data.name}
+        }))
+        setPanels(updatedPanels);
         } catch (error) {
           console.error('Error fetching data:', error);
         }
       }
-    }
     fetchData();
-  }, []);
+  }, []);~
 
   console.log(panels)
 
@@ -44,12 +47,14 @@ function App() {
       console.log("clicked" , id)
   }
 
- const boardElements = panels.map((panel,index) => <Board value={panel} key={index} handleClick={handleClick} id={index}/>)
+ const boardElements = panels.map((panel,index) => <Board name={panel.name} value={panel.value} key={index} handleClick={handleClick} id={index}/>)
 //  console.log(panels)
 
   return (
     <>
+    <div className='panel-holder'>
       {boardElements}
+    </div>
     </>
   )
 }
