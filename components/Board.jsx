@@ -1,29 +1,21 @@
-import React from "react"
+// import React from "react"
 // import nanoid from "nanoid"
 
 
-export default function Board(){
-    const [panels, setPanels] = React.useState([])
-
-    React.useEffect(()=>{
-      const newPanels = []
-      for(let i=1; i<=10;i++){
-        newPanels.push(i)
-      }
-      setPanels(newPanels)
-    },[])
-
-  
-    function panelsMapped(){
-      return panels.map((panel) => (
-        //   <img key={nanoid()} src={panel}/>
-        <p key={panel}>{panel}</p>
-      ))
-    }
-
+export default function Board(props){
+  console.log("props", props)
     return(
-        <div>
-            <h1>{panelsMapped}</h1>
-        </div>
+      <div className='panel-holder' >
+          <img src={props.value} alt="" onClick={props.handleClick}/>
+      </div>
     )
 }
+
+//todo  {
+//     id: nanoid() 
+//     imgUrl: ""
+//     seen: false
+// }
+
+// todo: find a way to get images from an api, set some of them up on the cards, if they card was clicked set seen to true, reshuffle cards and if the card thats clicked is seen then game over and return the number
+//todo: of cards that were clicked before game over

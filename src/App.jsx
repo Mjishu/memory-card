@@ -1,27 +1,41 @@
 
 import './App.css'
-import Board from '../components/Board'
+import React from 'react'
+import Board from '../components/Board.jsx'
 
 function App() {
- 
+  const [panels, setPanels] = React.useState([])
+
+  React.useEffect(() => {
+    async function fetchData() { //I think I should turn boardBody into an arr of objects 
+      const boardBody = [];
+      for (let i = 0; i <= 10; i++) {  
+        try {
+          const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i*5}`);
+          const data = await response.json();
+          boardBody.push(data.sprites.front_default);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      }
+      setPanels(boardBody);
+    }
+    fetchData();
+  }, []);
+
+  function handleClick(){
+      console.log("clicked")
+  }
+
+ const boardElements = panels.map((panel,index) => <Board value={panel} key={index} handleClick={handleClick}/>)
+ console.log(panels)
+
   return (
     <>
-      <div className="panel-holder">
-        <Board/>
-        <p>meow</p>
-      </div>
+      {boardElements}
     </>
   )
 }
 
 export default App
 
-//? set up an object in state that has a nanoid and an isSeen element that is default false, if the card with that id is clicked then switch
-// ? the isSeen to true and if it is clicked again then game over
-
-//* Break it down -> use state with n amount of cards; on these cards show a number and put this array of numbers inside useState -> change numbres to an img url
-
-// photos by pokeAPI
-
-//todo: I think i need to do a for loop inside the useEffect for n amounts and use a random number for the pokemon/ bc if i used 1-10 it will just
-//todo: be base pokemon and

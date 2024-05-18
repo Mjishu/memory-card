@@ -6,6 +6,6 @@
     text-align: center;
 }
 
-.panel-holder *{
+.panel-holder > img{
     border: black solid 1px;
 }
