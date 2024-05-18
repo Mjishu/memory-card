@@ -1,43 +1,14 @@
-import React from 'react'
+
 import './App.css'
+import Board from '../components/Board'
 
 function App() {
-  const [panels, setPanels] = React.useState([])
-
-  React.useEffect(()=>{
-    const newPanels = []
-    for(let i=1; i<=10;i++){
-      newPanels.push(i)
-    }
-    setPanels(newPanels)
-  },[])
-
-
-
-  React.useEffect(()=>{
-    const pokemonIndex = [3,1,2,23,34,65, 30, 46, 78, 18];
-    const newData = pokemonIndex.map(index => (
-      fetch(`https://pokeapi.co/api/v2/pokemon/${index}`)
-      .then(res => res.json())
-      .then(data => data.sprites.front_default)
-      .catch(error => console.log(error))
-    ));
-    setPanels(oldPanels => [...oldPanels, newData])
-  },[])
-
-  console.log(panels)
-
-  
-
-  function panelsMapped(){
-    return panels.map((panel) => (
-        <img key={panel.id} src={panel}/>
-    ))
-  }
+ 
   return (
     <>
       <div className="panel-holder">
-        {panelsMapped}
+        <Board/>
+        <p>meow</p>
       </div>
     </>
   )
@@ -53,4 +24,4 @@ export default App
 // photos by pokeAPI
 
 //todo: I think i need to do a for loop inside the useEffect for n amounts and use a random number for the pokemon/ bc if i used 1-10 it will just
-//todo: be base pokemon and their evolutions
+//todo: be base pokemon and
