@@ -3,10 +3,10 @@
 
 
 export default function Board(props){
-  console.log("props", props)
+  // console.log("props", props)
     return(
       <div className='panel-holder' >
-          <img src={props.value} alt="" onClick={props.handleClick}/>
+          <img src={props.value} alt="" onClick={()=>props.handleClick(props.id)}/>
       </div>
     )
 }
