@@ -23,7 +23,7 @@ function App() {
     return newPanel
   }
 
-  React.useEffect(() => {
+  React.useEffect(() => { //? Could I call populatePandels, and then in this for loop append the url to each of the value indexes that correlate with the index in panels?
     async function fetchData() { //I think I should turn boardBody into an arr of objects 
       const boardBody = [];
       for (let i = 1; i <= 10; i++) {  
@@ -56,3 +56,4 @@ function App() {
 
 export default App
 
+=
