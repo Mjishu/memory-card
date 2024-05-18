@@ -5,7 +5,7 @@ import Board from './components/Board.jsx'
 import { nanoid } from 'nanoid'
 
 function App() {
-  const [panels, setPanels] = React.useState([])
+  const [panels, setPanels] = React.useState(populatePanels())
 
   function createPanels(){
     return{
@@ -15,13 +15,15 @@ function App() {
     }
   }
 
-  function populatePandels(){ //? This should be called in React.useState 
+  function populatePanels(){ //? This should be called in React.useState 
     const newPanel = [];
     for (let i =0;i<10;i++){
       newPanel.push(createPanels())
     }
     return newPanel
   }
+
+  console.log(panels)
 
   React.useEffect(() => { //? Could I call populatePandels, and then in this for loop append the url to each of the value indexes that correlate with the index in panels?
     async function fetchData() { //I think I should turn boardBody into an arr of objects 
@@ -35,7 +37,7 @@ function App() {
           console.error('Error fetching data:', error);
         }
       }
-      setPanels(boardBody);
+      //setPanels(boardBody);
     }
     fetchData();
   }, []);
@@ -55,5 +57,3 @@ function App() {
 }
 
 export default App
-
-=
