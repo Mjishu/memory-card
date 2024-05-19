@@ -1,12 +1,50 @@
+:root{
+    --color-dark: 0,0%,14%;
+    --color-white: 240,100%,99%;
+    --color-light: 156,28%,71%;
+}
+
+body{
+    background-color: hsl(var(--color-dark));
+}
+
 .panel-holder{
     display: grid;
     grid-template-columns: repeat(5,1fr);
     grid-template-rows: repeat(2,auto);
     gap: .75rem;
     text-align: center;
+    color: hsl(var(--color-white))
 }
 
-.panel-holder > div > img{
-    border: black solid 1px;
-    width:7.5rem;
+.api-image{
+    width:9rem;
+}
+
+
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.image-holder{
+    background: none;
+    border: none;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    /* border: hsl(var(--color-white)) solid 1px; */
+    border: none;
+    border-radius: 10px;
+    
+}
+
+.image-holder:hover{
+    box-shadow: 0 0 4px hsl(var(--color-white));
+}
+
+.image-holder:active{
+    box-shadow: inset 0 0 10px hsl(var(--color-light));
 }

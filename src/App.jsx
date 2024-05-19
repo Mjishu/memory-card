@@ -5,7 +5,7 @@ import Board from './components/Board.jsx'
 import { nanoid } from 'nanoid'
 
 function App() {
-  const [panels, setPanels] = React.useState(populatePanels())
+  const [panels, setPanels] = React.useState(populatePanels)
 
   function createPanels(){
     return{
@@ -25,7 +25,6 @@ function App() {
     return newPanel
   }
 
-  console.log(panels)
 
   React.useEffect(() => { //? Could I call populatePandels, and then in this for loop append the url to each of the value indexes that correlate with the index in panels?
     async function fetchData() { //I think I should turn boardBody into an arr of objects 
@@ -46,19 +45,28 @@ function App() {
   console.log(panels)
 
   function handleClick(id){
-      console.log("clicked" , id)
+    setPanels(oldPanels=>{
+      const clickedItem = oldPanels.find(item => item.id === id);
+      const updatedPanels = oldPanels.map(panel => 
+        panel.id === id ? {...panel,isSeen:!clickedItem.isSeen} : panel
+      )
+      return updatedPanels
+    }) //! Breaks the code!!! YAYYY
   }
 
- const boardElements = panels.map((panel,index) => <Board name={panel.name} value={panel.value} key={index} handleClick={handleClick} id={index}/>)
+ const boardElements = panels.map((panel,index) => <Board name={panel.name} value={panel.value} key={panel.id} handleClick={handleClick} id={panel.id}/>)
 //  console.log(panels)
 
   return (
-    <>
+    <div className='content'>
     <div className='panel-holder'>
       {boardElements}
     </div>
-    </>
+    </div>
   )
 }
 
 export default App
+
+
+//* Slight bug... pokemon can show up multiple times if the odds are good enough so idk if theres a way to make sure this doesnt happen
