@@ -7,6 +7,7 @@ import { nanoid } from 'nanoid'
 function App() {
   const [panels, setPanels] = React.useState(populatePanels)
   const [loading, setLoading] = React.useState(true)
+  const [score, setScore] = React.useState(0)
 
   function createPanels(){
     return{
@@ -36,6 +37,7 @@ function App() {
           return {...panel, value:data.sprites.front_default, name:data.name}
         }))
         setPanels(updatedPanels);
+        setLoading(false)
         } catch (error) {
           console.error('Error fetching data:', error);
         }
@@ -52,7 +54,12 @@ function App() {
         panel.id === id ? {...panel,isSeen:!clickedItem.isSeen} : panel
       )
       return updatedPanels
-    }) //! Breaks the code!!! YAYYY
+    }) 
+    setScore(score + 1)
+  }
+
+  if(loading){
+    <div>Loading...</div>
   }
 
  const boardElements = panels.map((panel,index) => <Board name={panel.name} value={panel.value} key={panel.id} handleClick={handleClick} id={panel.id}/>)
@@ -63,6 +70,7 @@ function App() {
     <div className='panel-holder'>
       {boardElements}
     </div>
+    <h1>Score: {score}</h1>
     </div>
   )
 }
@@ -71,3 +79,4 @@ export default App
 
 
 //* Slight bug... pokemon can show up multiple times if the odds are good enough so idk if theres a way to make sure this doesnt happen
+// todo: find a way to shuffle the pokemon inside of panels without updating it
