@@ -6,6 +6,7 @@ import { nanoid } from 'nanoid'
 
 function App() {
   const [panels, setPanels] = React.useState(populatePanels)
+  const [loading, setLoading] = React.useState(true)
 
   function createPanels(){
     return{
