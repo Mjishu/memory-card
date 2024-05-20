@@ -129,7 +129,7 @@ function App() {
   return (
     <div className='content'>
       <div className="title-holder">
-        <h1 className='title'>Poke Memory</h1>
+        <h1 className='title'>Poke Mems</h1>
       </div>
       { status.gameOver || status.allSeen ?(
          <div>
