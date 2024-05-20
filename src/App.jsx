@@ -97,15 +97,15 @@ function App() {
 
   React.useEffect(()=>{
     const currentHighScore = localStorage.getItem("highScore") || 0
-    if(currentHighScore < status.score/2){
-      localStorage.setItem("highScore", status.score/2)
+    if(currentHighScore < Math.ceil(status.score/2)){
+      localStorage.setItem("highScore", Math.ceil(status.score/2))
     }
   },[status.allSeen])
 
   React.useEffect(()=>{
     const currentHighScore = localStorage.getItem("highScore") || 0
-    if(currentHighScore < (status.score/2) -1){
-      localStorage.setItem("highScore", status.score/2)
+    if(currentHighScore < Math.ceil((status.score/2)) -1){
+      localStorage.setItem("highScore", Math.ceil(status.score/2))
     }
   },[status.gameOver])
   
@@ -134,7 +134,7 @@ function App() {
       { status.gameOver || status.allSeen ?(
          <div>
           <h1>{status.gameOver ? "Game Over" : "You win!"}</h1>
-          <p>Your Score was {status.gameOver ? (status.score/2 )-1 : status.score/2}</p>
+          <p>Your Score was {status.gameOver ? Math.ceil((status.score/2 ))-1 : Math.ceil(status.score/2)}</p>
           <button onClick={() => window.location.reload()}>Play Again?</button>
           <div className="score-holder">
             <p className='high-score'>High Score: {status.highScore}</p>
@@ -146,7 +146,7 @@ function App() {
             {boardElements}
           </div>
           <div className="score-holder">
-            <h1>Score: {status.score /2}</h1> 
+            <h1>Score: {Math.ceil(status.score /2)}</h1> 
             <p className='high-score'>High Score: {status.highScore}</p>
             <h2> {status.seen ? " You win" : ""}</h2>
           </div>
@@ -159,6 +159,5 @@ function App() {
 export default App
 
 
-//* Slight bug... pokemon can show up multiple times if the odds are good enough so idk if theres a way to make sure this doesnt happen
+//* Slight bug... pokemon can show up multiple times if the odds are good enough so idk if theres a way to make sure this doesnt happe... my high score is 4.5....
 
-// todo: find a place to put localstorage.setItem("highScore", score/2)
