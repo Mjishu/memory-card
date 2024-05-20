@@ -97,15 +97,15 @@ function App() {
 
   React.useEffect(()=>{
     const currentHighScore = localStorage.getItem("highScore") || 0
-    if(currentHighScore < Math.ceil(status.score/2)){
-      localStorage.setItem("highScore", Math.ceil(status.score/2))
+    if(currentHighScore < status.score){
+      localStorage.setItem("highScore", status.score)
     }
   },[status.allSeen])
 
   React.useEffect(()=>{
     const currentHighScore = localStorage.getItem("highScore") || 0
-    if(currentHighScore < Math.ceil((status.score/2)) -1){
-      localStorage.setItem("highScore", Math.ceil(status.score/2))
+    if(currentHighScore < status.score -1){
+      localStorage.setItem("highScore", status.score)
     }
   },[status.gameOver])
   
@@ -129,12 +129,12 @@ function App() {
   return (
     <div className='content'>
       <div className="title-holder">
-        <h1 className='title'>Poke Mems</h1>
+        <h1 className='title'>Poke Memory</h1>
       </div>
       { status.gameOver || status.allSeen ?(
          <div>
           <h1>{status.gameOver ? "Game Over" : "You win!"}</h1>
-          <p>Your Score was {status.gameOver ? Math.ceil((status.score/2 ))-1 : Math.ceil(status.score/2)}</p>
+          <p>Your Score was {status.gameOver ? status.score -1 : status.score}</p>
           <button onClick={() => window.location.reload()}>Play Again?</button>
           <div className="score-holder">
             <p className='high-score'>High Score: {status.highScore}</p>
@@ -146,7 +146,7 @@ function App() {
             {boardElements}
           </div>
           <div className="score-holder">
-            <h1>Score: {Math.ceil(status.score /2)}</h1> 
+            <h1>Score: {status.score}</h1> 
             <p className='high-score'>High Score: {status.highScore}</p>
             <h2> {status.seen ? " You win" : ""}</h2>
           </div>
