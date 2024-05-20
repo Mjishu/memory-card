@@ -128,21 +128,28 @@ function App() {
 
   return (
     <div className='content'>
+      <div className="title-holder">
+        <h1 className='title'>Poke Memory</h1>
+      </div>
       { status.gameOver || status.allSeen ?(
          <div>
           <h1>{status.gameOver ? "Game Over" : "You win!"}</h1>
           <p>Your Score was {status.gameOver ? (status.score/2 )-1 : status.score/2}</p>
           <button onClick={() => window.location.reload()}>Play Again?</button>
-          <p>High Score: {status.highScore}</p>
+          <div className="score-holder">
+            <p className='high-score'>High Score: {status.highScore}</p>
+          </div>
         </div>)
       :(
         <div>
           <div className='panel-holder'>
             {boardElements}
           </div>
-          <h1>Score: {status.score /2}</h1> 
-          <p>High Score: {status.highScore}</p>
-          <h2> {status.seen ? " You win" : ""}</h2>
+          <div className="score-holder">
+            <h1>Score: {status.score /2}</h1> 
+            <p className='high-score'>High Score: {status.highScore}</p>
+            <h2> {status.seen ? " You win" : ""}</h2>
+          </div>
         </div>)
       }
     </div>
@@ -155,7 +162,3 @@ export default App
 //* Slight bug... pokemon can show up multiple times if the odds are good enough so idk if theres a way to make sure this doesnt happen
 
 // todo: find a place to put localstorage.setItem("highScore", score/2)
-
-// if (currentLocalStorage < score){
-//   localStorage.set("highScore", score/2)
-// }
