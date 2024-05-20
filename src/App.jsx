@@ -56,10 +56,21 @@ function App() {
       return updatedPanels
     }) 
     setScore(score + 1)
+    Shufflepanels()
   }
 
   if(loading){
     <div>Loading...</div>
+  }
+
+  function  Shufflepanels(){
+    for(let i= panels.length -1; i>0;i--){
+      let random = Math.floor(Math.random()* (i+1));
+      let temp = panels[i]
+      panels[i] = panels[random]
+      panels[random] = temp
+    }
+    return panels
   }
 
  const boardElements = panels.map((panel,index) => <Board name={panel.name} value={panel.value} key={panel.id} handleClick={handleClick} id={panel.id}/>)

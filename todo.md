@@ -5,3 +5,6 @@
 
 
 
+add the checker funciton and then call it inside a useEffect that updates everytime panels gets changed/the dependency
+
+<!-- add a function that randomizes the current panels, and then call that funciton inside of handleClick? -->
